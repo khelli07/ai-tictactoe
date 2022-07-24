@@ -1,24 +1,25 @@
+import argparse
 from board import *
 
-board = ["" for _ in range(9)]
+parser = argparse.ArgumentParser(description="Tic-Tac-Toe")
+parser.add_argument(
+    "-b", "--bot", action="store_true", help="This flag specify if bot starts first"
+)
+args = parser.parse_args()
 
-game = TicTacToe(board, 0, True)
+game = TicTacToe(["" for _ in range(9)], 0, True)
 
-is_finished, bot = False, False
+is_finished, bot = False, bool(vars(args)["bot"])
 empty = 8
-turn = "PLAYER"
 while not is_finished:
-    print(f"========== {turn}'S TURN ==========")
-    game.print_board()
-    print("-" * 35)
     if not bot:
+        game.print_board()
+        print("-" * 35)
         idx = int(input("Where to put your symbol? "))
         game.update_board(idx)
-        turn = "BOT"
     else:
         idx, _ = game.minimax(empty, True)
         game.update_board(idx)
-        turn = "PLAYER"
 
     bot = not bot
     empty -= 1
