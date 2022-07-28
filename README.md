@@ -2,6 +2,8 @@
 
 This is my implementation of artificial intelligence using Minimax algorithm with Python.
 
+## How to run
+
 To run the program, simply type 
 
 ```cmd
